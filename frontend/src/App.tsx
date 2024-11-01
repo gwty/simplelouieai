@@ -24,7 +24,7 @@ function App() {
   }
   return (
     <>
-
+      <h1>Louie AI</h1>
       <div className="card">
       <form onSubmit={handleSubmit}>
       <label>
@@ -41,6 +41,7 @@ function App() {
     </form>
       </div>
       <div className="result">
+        <h2>Result:</h2>
       <ReactMarkdown children={result} />
       </div>
     </>
