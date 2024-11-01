@@ -17,6 +17,7 @@ jobs:
     - name: Build and test backend
       run: |
         docker compose up -d
+        pip install pytest
         pytest
 
   frontend:
