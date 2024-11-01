@@ -6,6 +6,7 @@ dependencies:
   - pip=23.3.1
   - fastapi=0.100.0
   - uvicorn=0.23.1
+  - pytest
 
   # Example for when dependencies are not available in conda-forge
   - pip:
