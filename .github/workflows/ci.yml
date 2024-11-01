@@ -16,7 +16,6 @@ jobs:
 
     - name: Build and test backend
       run: |
-        ./init-data.sh
         docker compose up -d
 
   frontend:
