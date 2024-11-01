@@ -1,9 +1,39 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
+from glob import glob
+from random import randint
 
 app = FastAPI()
-    
+
+class Query(BaseModel):
+    query: str
+    filename: str
+
 @app.get("/")
 async def read_root():
     return {"message": "Hello, world!"}
 
 
+@app.post("/query")
+async def read_query(query:Query):
+    
+    mypath = './data/'
+    # get all files recursively
+    all_files = glob(mypath + '/**', recursive=True)
+
+    request = query.model_dump()
+    query = request['query']
+    filename = request['filename']
+
+    for file in all_files:
+        filen = file.split('/')[-1].split('.')[0].lower()
+        if filen == filename.lower():
+            with open(file, 'r') as f:
+                data = f.readlines()
+
+                # get random 10 lines from the file
+                random_lines = [randint(1, len(data)-1) for i in range(10)]
+                answer = ''.join([(data[i]) for i in random_lines])
+            return {"result": answer}
+        
+    return {"result": "Cannot find file!"}
