@@ -10,3 +10,4 @@ dependencies:
   # Example for when dependencies are not available in conda-forge
   - pip:
     - tiktoken==0.7.0
+    - pydantic==2.9
