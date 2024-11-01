@@ -2,6 +2,13 @@
 
 A starting point for dockerized python web
 
+
+## Cleanup
+
+I am cleaning the Python codebase
+
+
+
 ## Development
 
 ### Prerequisites

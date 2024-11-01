@@ -3,13 +3,16 @@ from pydantic import BaseModel
 from glob import glob
 from random import randint
 from fastapi.middleware.cors import CORSMiddleware
+import os
 
 app = FastAPI()
 
+# allow specific origin points to this app
 origins = [
     "http://localhost:5173",
 ]
 
+# add CORS middleware for the above origins
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -18,14 +21,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# data model
 class Query(BaseModel):
     query: str
     filename: str
-
-@app.get("/")
-async def read_root():
-    return {"message": "Hello, world!"}
-
 
 @app.post("/query")
 async def read_query(query:Query):
@@ -40,10 +39,15 @@ async def read_query(query:Query):
 
     for file in all_files:
         filen = file.split('/')[-1].split('.')[0].lower()
-        if filen == filename.lower():
-            with open(file, 'r') as f:
-                data = f.readlines()
 
+        ## add handling for windows-based paths
+        if os.name == 'nt':
+            filen = file.split('\\')[-1].split('.')[0].lower()
+            
+        if filen == filename.lower():
+            with open(file, 'r', encoding="utf8") as f:
+
+                data = f.readlines()
                 # get random 10 lines from the file
                 random_lines = [randint(1, len(data)-1) for i in range(10)]
                 answer = ''.join([(data[i]) for i in random_lines])
