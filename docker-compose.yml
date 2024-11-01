@@ -1,0 +1,10 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: python.Dockerfile
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./server:/app/server
+      - ./data:/app/data

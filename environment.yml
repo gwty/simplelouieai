@@ -1,0 +1,12 @@
+name: louie
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10.13
+  - pip=23.3.1
+  - fastapi=0.100.0
+  - uvicorn=0.23.1
+
+  # Example for when dependencies are not available in conda-forge
+  - pip:
+    - tiktoken==0.7.0
