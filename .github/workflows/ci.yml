@@ -16,8 +16,8 @@ jobs:
 
     - name: Build and test backend
       run: |
-        echo "TODO"
-        ls
+        ./init-data.sh
+        docker compose up -d
 
   frontend:
     runs-on: ubuntu-latest
@@ -32,6 +32,6 @@ jobs:
 
     - name: Install frontend dependencies
       run: |
-        echo "TODO"
         cd frontend
-        ls
+        npm install
+        npm run dev
